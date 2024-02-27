@@ -6,15 +6,19 @@
   "scripts": {
     "exercises01": "npx playwright test ./tests/exercises/exercises01.spec.ts",
     "exercises02": "npx playwright test ./tests/exercises/exercises02.spec.ts",
+    "exercises03": "npx playwright test ./tests/exercises/exercises03.spec.ts",
     "examples01": "npx playwright test ./tests/examples/examples01.spec.ts",
     "examples02": "npx playwright test ./tests/examples/examples02.spec.ts",
+    "examples03": "npx playwright test ./tests/examples/examples03.spec.ts",
     "answers01": "npx playwright test ./tests/answers/answers01.spec.ts",
-    "answers02": "npx playwright test ./tests/answers/answers02.spec.ts"
+    "answers02": "npx playwright test ./tests/answers/answers02.spec.ts",
+    "answers03": "npx playwright test ./tests/answers/answers03.spec.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@axe-core/playwright": "^4.8.5",
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.20"
   }
