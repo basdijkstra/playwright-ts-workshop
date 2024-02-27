@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "exercises01": "npx playwright test ./tests/exercises/exercises01.spec.ts",
+    "examples01": "npx playwright test ./tests/examples/examples01.spec.ts",
+    "answers01": "npx playwright test ./tests/answers/answers01.spec.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
