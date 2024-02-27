@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "exercises01": "npx playwright test ./tests/exercises/exercises01.spec.ts",
+    "exercises02": "npx playwright test ./tests/exercises/exercises02.spec.ts",
     "examples01": "npx playwright test ./tests/examples/examples01.spec.ts",
-    "answers01": "npx playwright test ./tests/answers/answers01.spec.ts"
+    "examples02": "npx playwright test ./tests/examples/examples02.spec.ts",
+    "answers01": "npx playwright test ./tests/answers/answers01.spec.ts",
+    "answers02": "npx playwright test ./tests/answers/answers02.spec.ts"
   },
   "keywords": [],
   "author": "",
