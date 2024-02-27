@@ -3,7 +3,7 @@ import {LoginPage} from "./pages/login-page";
 import {AccountsOverviewPage} from "./pages/accounts-overview-page";
 import AxeBuilder from "@axe-core/playwright";
 
-test('Examples 02', async ({ page }) => {
+test('Examples 03', async ({ page }) => {
 
   const loginPage = new LoginPage(page);
   await loginPage.open();
