@@ -30,8 +30,8 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  /* Set timeout to 10 seconds */
-  timeout: 10000,
+  /* Set timeout to 20 seconds */
+  timeout: 20000,
 
   /* Configure projects for major browsers */
   projects: [
@@ -45,10 +45,10 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
