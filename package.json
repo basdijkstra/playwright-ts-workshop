@@ -16,7 +16,8 @@
     "answers01": "npx playwright test ./tests/answers/answers01.spec.ts",
     "answers02": "npx playwright test ./tests/answers/answers02.spec.ts",
     "answers03": "npx playwright test ./tests/answers/answers03.spec.ts",
-    "answers04": "npx playwright test ./tests/answers/answers04.spec.ts"
+    "answers04": "npx playwright test ./tests/answers/answers04.spec.ts",
+    "answers05": "npx playwright test ./tests/answers/answers05.spec.ts"
   },
   "keywords": [],
   "author": "",

@@ -8,6 +8,10 @@ export class AccountsOverviewPage {
         this.page = page;
     }
 
+    async open() {
+        await this.page.goto('https://parabank.parasoft.com/parabank/overview.htm');
+    }
+
     async selectAccount(accountNumber: string) {
         await this.page.getByRole('link', { name: accountNumber }).click();
     }
