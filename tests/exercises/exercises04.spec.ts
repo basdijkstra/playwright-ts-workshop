@@ -1,43 +1,50 @@
 import { test, expect } from '@playwright/test';
+import {LoginPage} from "../answers/pages/login-page";
+import {ProductsOverviewPage} from "../answers/pages/products-overview-page";
 
-test('Exercises 04 - 01', async ({ request }) => {
+const authFile = 'playwright/.auth/user.json';
 
-  // Retrieve the details for user with ID 1 by performing a GET request to "/users/1"
-  // Store the response in a const
-  // TODO: your code goes here
+test.describe('Exercises 04', () => {
 
-  // Verify that the response status is equal to HTTP 200
-  // TODO: your code goes here
+  test.beforeAll('Login and capture browser state', async({browser}) =>{
 
-  // Extract the JSON response body and store it in a const
-  // TODO: your code goes here
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
-  // Check that the value of the top level 'name' element in the response equals 'Leanne Graham'
-  // Check that the value of the 'name' element that is a child element of 'company' equals 'Romaguera-Crona'
-  // TODO: your code goes here
+    // TODO: Use the LoginPage object to log in to the application
+    // Your code goes here
 
-});
+    // TODO: wait until the element with text 'Sauce Labs Backpack' is visible
+    //   (this guarantees the login sequence is completed)
+    // Your code goes here
 
-test('Exercises 04 - 02', async ({ request }) => {
+    // TODO: store the current browser state in the `authFile`
+    // Your code goes here
+  });
 
-  // Create two new const's with values of your choice, one representing a blog post title
-  // and the other one representing the corresponding blog post body.
-  // TODO: your code goes here
+  test('Reuse browser state - 01', async ({ browser}) => {
 
-  // Perform an HTTP POST to https://jsonplaceholder.typicode.com/posts and send a JSON request payload
-  // { 'userId': 1, 'title': <your_post_title>, 'body': <your_post_body> }
-  // See https://playwright.dev/docs/api-testing for examples
-  // Store the response in a const
-  // TODO: your code goes here
+    // TODO: start a new browser that uses the previously stored browser state
+    // Your code goes here, remove the const page = null; statement
+    const page = null;
 
-  // Verify that the response status is equal to HTTP 200
-  // TODO: your code goes here
+    const productsOverviewPage = new ProductsOverviewPage(page);
+    await productsOverviewPage.open();
+    await productsOverviewPage.selectProduct('Sauce Labs Backpack');
 
-  // Extract the JSON response body and store it in a const
-  // TODO: your code goes here
+    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Backpack\']')).toBeVisible();
+  });
 
-  // Check that the value of the 'title' and 'body' top level elements in the response
-  // equal the values you sent in the request body
-  // TODO: your code goes here
+  test('Reuse browser state - 02', async ({ browser }) => {
 
+    // TODO: start a new browser that uses the previously stored browser state
+    // Your code goes here, remove the const page = null; statement
+    const page = null;
+
+    const productsOverviewPage = new ProductsOverviewPage(page);
+    await productsOverviewPage.open();
+    await productsOverviewPage.selectProduct('Sauce Labs Bike Light');
+
+    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Bike Light\']')).toBeVisible();
+  });
 });

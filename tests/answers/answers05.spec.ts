@@ -1,52 +1,52 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "./pages/login-page";
-import {ProductsOverviewPage} from "./pages/products-overview-page";
 
-const authFile = 'playwright/.auth/user.json';
+test('Answers 05 - 01', async ({ request }) => {
 
-test.describe('Answers 05', () => {
+  // Retrieve the details for user with ID 1 by performing a GET request to "/users/1"
+  // Store the response in a const
+  const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
 
-  test.beforeAll('Login and capture browser state', async({browser}) =>{
+  // Verify that the response status is equal to HTTP 200
+  expect(response.ok()).toBeTruthy();
 
-    const context = await browser.newContext();
-    const page = await context.newPage();
+  // Extract the JSON response body and store it in a const
+  const body = await response.json();
 
-    // TODO: Use the LoginPage object to log in to the application
-    const loginPage = new LoginPage(page);
-    await loginPage.open();
-    await loginPage.loginAs('standard_user', 'secret_sauce');
+  // Check that the value of the top level 'name' element in the response equals 'Leanne Graham'
+  // Check that the value of the 'name' element that is a child element of 'company' equals 'Romaguera-Crona'
+  expect(body.name).toBe('Leanne Graham');
+  expect(body.company.name).toBe('Romaguera-Crona');
 
-    // TODO: wait until the element with text 'Sauce Labs Backpack' is visible
-    //   (this guarantees the login sequence is completed)
-    await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
+});
 
-    // TODO: store the current browser state in the `authFile`
-    await page.context().storageState({ path: authFile });
+test('Answers 05 - 02', async ({ request }) => {
+
+  // Create two new const's with values of your choice, one representing a blog post title
+  // and the other one representing the corresponding blog post body.
+  const title = 'My new blog post';
+  const body = 'This is the body of my new blog post';
+
+  // Perform an HTTP POST to https://jsonplaceholder.typicode.com/posts and send a JSON request payload
+  // { 'userId': 1, 'title': <your_post_title>, 'body': <your_post_body> }
+  // See https://playwright.dev/docs/api-testing for examples
+  // Store the response in a const
+  const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
+    'data' : {
+      'userId': 1,
+      'title': title,
+      'body': body
+    }
   });
 
-  test('Reuse browser state - 01', async ({ browser}) => {
+  // Verify that the response status is equal to HTTP 200
+  expect(response.ok()).toBeTruthy();
 
-    // TODO: start a new browser that uses the previously stored browser state
-    const context = await browser.newContext({ storageState: authFile });
-    const page = await context.newPage();
+  // Extract the JSON response body and store it in a const
+  const responseBody = await response.json();
 
-    const productsOverviewPage = new ProductsOverviewPage(page);
-    await productsOverviewPage.open();
-    await productsOverviewPage.selectProduct('Sauce Labs Backpack');
+  // Check that the value of the 'title' and 'body' top level elements in the response
+  // equal the values you sent in the request body
+  expect(responseBody.title).toBe(title);
+  expect(responseBody.body).toBe(body);
 
-    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Backpack\']')).toBeVisible();
-  });
-
-  test('Reuse browser state - 02', async ({ browser }) => {
-
-    // TODO: start a new browser that uses the previously stored browser state
-    const context = await browser.newContext({ storageState: authFile });
-    const page = await context.newPage();
-
-    const productsOverviewPage = new ProductsOverviewPage(page);
-    await productsOverviewPage.open();
-    await productsOverviewPage.selectProduct('Sauce Labs Bike Light');
-
-    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Bike Light\']')).toBeVisible();
-  });
 });

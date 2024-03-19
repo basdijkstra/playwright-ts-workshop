@@ -1,14 +1,34 @@
 import { test, expect } from '@playwright/test';
+import {LoginPage} from "./pages/login-page";
+import {AccountsOverviewPage} from "./pages/accounts-overview-page";
 
-test('Examples 04', async ({ request }) => {
+const authFile = 'playwright/.auth/parabank.json';
 
-  const response = await request.get('https://api.zippopotam.us/us/90210');
+test.describe('Examples 04', () => {
 
-  expect(response.ok()).toBeTruthy();
+  test.beforeAll('Login and capture browser state', async({browser}) =>{
 
-  const body = await response.json();
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
-  expect(body.country).toBe('United States');
-  expect(body.places[0]['place name']).toBe('Beverly Hills');
+    const loginPage = new LoginPage(page);
+    await loginPage.open();
+    await loginPage.loginAs('john', 'demo');
 
+    await expect(page.getByRole('link', {name: '12345'})).toBeVisible();
+
+    await page.context().storageState({ path: authFile });
+  });
+
+  test('Reuse browser state', async ({ browser}) => {
+
+    const context = await browser.newContext({ storageState: authFile });
+    const page = await context.newPage();
+
+    const accountsOverviewPage = new AccountsOverviewPage(page);
+    await accountsOverviewPage.open();
+
+    // After you completed the exercises, this assertion (and therefore the test) should pass
+    await expect(page.getByRole('link', {name: '12345'})).toBeVisible();
+  });
 });
