@@ -31,7 +31,7 @@ test('Answers 05 - 02', async ({ request }) => {
   // See https://playwright.dev/docs/api-testing for examples
   // Store the response in a const
   const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
-    'data' : {
+    data : {
       'userId': 1,
       'title': title,
       'body': body
