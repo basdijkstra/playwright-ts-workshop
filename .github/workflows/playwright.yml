@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      name: Get test project from version control
     - uses: actions/setup-node@v4
+      name: Setup NodeJS 18
       with:
         node-version: 18
     - name: Install dependencies
@@ -20,8 +22,15 @@ jobs:
     - name: Run one of the tests
       run: npm run answers01
     - uses: actions/upload-artifact@v4
+      name: Publish HTML test report for download
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Publish JUnit test result for review in GitHub Actions
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: ${{ !cancelled() }}
+      with:
+        files: |
+          test-results/**/*.xml
