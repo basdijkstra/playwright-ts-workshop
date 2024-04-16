@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Exercises 05 - 01', async ({ request }) => {
 
-  // Retrieve the details for user with ID 1 by performing a GET request to "/users/1"
+  // Retrieve the details for user with ID 1 by performing a GET request to "https://jsonplaceholder.typicode.com/users/1"
   // Store the response in a const
   // TODO: your code goes here
 
