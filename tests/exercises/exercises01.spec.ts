@@ -1,18 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-test('Exercises 01', async ({ page }) => {
+test('Exercises 01 - Log in to ParaBank', async ({ page }) => {
 
-  // Navigate to https://www.saucedemo.com
-  // TODO: your code goes here
+  // TODO: Navigate to https://parabank.parasoft.com
 
-  // Login by:
-  // Typing 'standard_user' into the text field with placeholder 'Username'. Use the getByPlaceholder() locator.
-  // Typing 'secret_sauce' into the text field with placeholder 'Password'.
-  // Clicking the button with name 'Login'. See the example for an idea on how to do this.
-  // TODO: your code goes here
 
-  // Check that the element with text 'Products' is visible
-  // See https://playwright.dev/docs/locators#locate-by-text for a hint.
-  // TODO: your code goes here
+  // TODO: Login by:
+  //   Typing 'john' into the username text field. You'll need an XPath or a CSS selector to locate the input element.
+  //   Typing 'demo' into the password text field. The same as above applies here.
+  //   Clicking the button with name 'Log In'. See the example for an idea on how to do this. You can use getByRole() here.
+
+
+  // TODO: Check that the page contains an element with an 'id' attribute with value 'accountTable'.
+  //   You'll again need an XPath or a CSS selector to do this.
 
 });
