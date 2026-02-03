@@ -24,14 +24,14 @@
     "answers04": "npx playwright test ./tests/answers/answers04.spec.ts",
     "answers05": "npx playwright test ./tests/answers/answers05.spec.ts",
     "answers06": "npx playwright test ./tests/answers/answers06.spec.ts",
-    "answers07": "npx playwright test ./tests/answers/answers07.spec.ts --trace on"
+    "answers07": "npx playwright test ./tests/answers/answers07.spec.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.2",
-    "@playwright/test": "^1.52.0",
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.58.0",
     "@types/node": "^20.19.11"
   }
 }
