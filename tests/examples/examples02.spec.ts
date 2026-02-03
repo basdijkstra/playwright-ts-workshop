@@ -1,16 +1,13 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "./pages/login-page";
-import {AccountsOverviewPage} from "./pages/accounts-overview-page";
+import {LoginPage} from "./pages/loginPage";
+import { ProductsOverviewPage } from './pages/productsOverviewPage';
 
 test('Examples 02', async ({ page }) => {
 
   const loginPage = new LoginPage(page);
   await loginPage.open();
-  await loginPage.loginAs('john', 'demo');
+  await loginPage.loginAs('standard_user', 'secret_sauce');
 
-  const accountsOverviewPage = new AccountsOverviewPage(page);
-  await accountsOverviewPage.selectAccount('12345');
-
-  await expect(page).toHaveTitle('ParaBank | Account Activity');
+  expect(new ProductsOverviewPage(page).title).toBeVisible();
 
 });

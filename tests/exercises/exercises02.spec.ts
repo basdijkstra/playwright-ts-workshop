@@ -1,19 +1,21 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "./pages/login-page";
-import {ProductsOverviewPage} from "./pages/products-overview-page";
+import {LoginPage} from "./pages/loginPage";
+import {AccountsOverviewPage} from "./pages/accountsOverviewPage";
+import { RequestLoanPage } from './pages/requestLoanPage';
 
-test('Exercises 02', async ({ page }) => {
+test('Exercises 02 - Log in to ParaBank using Page Objects', async ({ page }) => {
 
   // Create a new LoginPage instance (the class and methods already exist)
-  //  then first call open() on it, then loginAs(), passing the credentials as arguments
-  // TODO: your code goes here
+  //   then first call open() on it, then loginAs(),
+  //   passing username 'john' and password 'demo' as arguments
+  
 
-  // Create a new ProductsOverviewPage instance (the class already exists). Then,
-  //  in the page object class, create a method to select the product with the name 'Sauce Labs Backpack'
-  //  and then call it here
-  // TODO: your code goes here
+  // Create a new AccountsOverviewPage instance (the class already exists). Then,
+  //   in the page object class, create a method to select a menu item with by its text
+  //   and then call it here, passing in 'Request Loan' as an argument
+  
 
   // After you completed the exercises, this assertion (and therefore the test) should pass
-  await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Backpack\']')).toBeVisible();
+  await expect(new RequestLoanPage(page).textfieldAmount).toBeVisible();
 
 });
