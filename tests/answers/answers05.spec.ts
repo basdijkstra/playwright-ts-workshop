@@ -1,52 +1,36 @@
 import { test, expect } from '@playwright/test';
 
-test('Answers 05 - 01', async ({ request }) => {
+test('Answers 05 - 01 - Reinitializing the ParaBank database using the API', async ({ request }) => {
 
-  // Retrieve the details for user with ID 1 by performing a GET request to "https://jsonplaceholder.typicode.com/users/1"
+  // Reinitialize the ParaBank database by performing a POST request to "https://parabank.parasoft.com/parabank/services/bank/initializeDB"
   // Store the response in a const
-  const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
+  const response = await request.post('https://parabank.parasoft.com/parabank/services/bank/initializeDB');
 
-  // Verify that the response status is equal to HTTP 200
-  expect(response.ok()).toBeTruthy();
-
-  // Extract the JSON response body and store it in a const
-  const body = await response.json();
-
-  // Check that the value of the top level 'name' element in the response equals 'Leanne Graham'
-  // Check that the value of the 'name' element that is a child element of 'company' equals 'Romaguera-Crona'
-  expect(body.name).toBe('Leanne Graham');
-  expect(body.company.name).toBe('Romaguera-Crona');
-
+  // Verify that the response status is equal to HTTP 204
+  expect(response.status()).toBe(204);
 });
 
-test('Answers 05 - 02', async ({ request }) => {
+test('Answers 05 - 02 - Retrieving user details', async ({ request }) => {
 
-  // Create two new const's with values of your choice, one representing a blog post title
-  // and the other one representing the corresponding blog post body.
-  const title = 'My new blog post';
-  const body = 'This is the body of my new blog post';
-
-  // Perform an HTTP POST to https://jsonplaceholder.typicode.com/posts and send a JSON request payload
-  // { 'userId': 1, 'title': <your_post_title>, 'body': <your_post_body> }
-  // See https://playwright.dev/docs/api-testing for examples
-  // Store the response in a const
-  const response = await request.post('https://jsonplaceholder.typicode.com/posts', {
-    data : {
-      'userId': 1,
-      'title': title,
-      'body': body
+  // Retrieve the details for customer with ID 12212 by performing a GET request to "https://parabank.parasoft.com/parabank/services/bank/customers/12212"
+  // Add a header 'Accept' to the request with value 'application/json' to make the API return the data in JSON format (it defaults to XML)
+  // See this link for an example of the syntax: https://playwright.dev/docs/api-testing#using-request-context
+  // You can use this syntax on 'request' as well as on 'context'.
+  const response = await request.get('https://parabank.parasoft.com/parabank/services/bank/customers/12212', {
+    headers: {
+      'Accept': 'application/json'
     }
   });
 
   // Verify that the response status is equal to HTTP 200
-  expect(response.ok()).toBeTruthy();
+  expect(response.status()).toBe(200);
 
   // Extract the JSON response body and store it in a const
   const responseBody = await response.json();
 
-  // Check that the value of the 'title' and 'body' top level elements in the response
-  // equal the values you sent in the request body
-  expect(responseBody.title).toBe(title);
-  expect(responseBody.body).toBe(body);
+  // Verify that the value of the 'firstName' property is equal to 'John'
+  expect(responseBody.firstName).toBe('John');
 
+  // Verify that the value of the 'city' property, a child property of 'address', is equal to 'Beverly Hills'
+  expect(responseBody.address.city).toBe('Beverly Hills');
 });

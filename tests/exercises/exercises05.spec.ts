@@ -1,43 +1,30 @@
 import { test, expect } from '@playwright/test';
 
-test('Exercises 05 - 01', async ({ request }) => {
+test('Exercises 05 - 01 - Reinitializing the ParaBank database using the API', async ({ request }) => {
 
-  // Retrieve the details for user with ID 1 by performing a GET request to "https://jsonplaceholder.typicode.com/users/1"
+  // Reinitialize the ParaBank database by performing a POST request to "https://parabank.parasoft.com/parabank/services/bank/initializeDB"
   // Store the response in a const
-  // TODO: your code goes here
 
-  // Verify that the response status is equal to HTTP 200
-  // TODO: your code goes here
-
-  // Extract the JSON response body and store it in a const
-  // TODO: your code goes here
-
-  // Check that the value of the top level 'name' element in the response equals 'Leanne Graham'
-  // Check that the value of the 'name' element that is a child element of 'company' equals 'Romaguera-Crona'
-  // TODO: your code goes here
-
+  // Verify that the response status is equal to HTTP 204
+  
 });
 
-test('Exercises 05 - 02', async ({ request }) => {
+test('Exercises 05 - 02 - Retrieving user details', async ({ request }) => {
 
-  // Create two new const's with values of your choice, one representing a blog post title
-  // and the other one representing the corresponding blog post body.
-  // TODO: your code goes here
-
-  // Perform an HTTP POST to https://jsonplaceholder.typicode.com/posts and send a JSON request payload
-  // { 'userId': 1, 'title': <your_post_title>, 'body': <your_post_body> }
-  // See https://playwright.dev/docs/api-testing for examples
-  // Store the response in a const
-  // TODO: your code goes here
+  // Retrieve the details for customer with ID 12212 by performing a GET request to "https://parabank.parasoft.com/parabank/services/bank/customers/12212"
+  // Add a header 'Accept' to the request with value 'application/json' to make the API return the data in JSON format (it defaults to XML)
+  // See this link for an example of the syntax: https://playwright.dev/docs/api-testing#using-request-context
+  // You can use this syntax on 'request' as well as on 'context'.
 
   // Verify that the response status is equal to HTTP 200
-  // TODO: your code goes here
+  
 
   // Extract the JSON response body and store it in a const
-  // TODO: your code goes here
+  
 
-  // Check that the value of the 'title' and 'body' top level elements in the response
-  // equal the values you sent in the request body
-  // TODO: your code goes here
+  // Verify that the value of the 'firstName' property is equal to 'John'
+  
 
+  // Verify that the value of the 'city' property, a child property of 'address', is equal to 'Beverly Hills'
+  
 });
