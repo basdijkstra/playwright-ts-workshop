@@ -4,7 +4,7 @@ test('Examples 07', async ({ page }) => {
 
   await page.route('*/**/api/v1/fruits', async route => {
     const json = [{name: 'SomeRandomValue', id: 21}];
-    await route.fulfill({json})
+    await route.fulfill({json: json})
   });
 
   await page.goto('https://demo.playwright.dev/api-mocking');

@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "./pages/login-page-parabank";
-import {AccountsOverviewPage} from "./pages/accounts-overview-page";
+import { LoginPage } from "./pages/loginPage";
 
-test('Answers 07', async ({ page }) => {
+test('Answers 07 - Use mock data in an API response', async ({ page }) => {
 
   // TODO: add a new mock response to the page. This should mock the call to
   //  */**/customers/12212/accounts and return a list with a single account with #99999.
@@ -11,7 +10,7 @@ test('Answers 07', async ({ page }) => {
   //  Define this mock _before_ calling the code to login you find below.
   await page.route('*/**/customers/12212/accounts', async route => {
     const json = [{id: 99999, customerId: 12212, type: 'CHECKING', balance: 9999.99}];
-    await route.fulfill({json});
+    await route.fulfill({json: json});
   });
 
   const loginPage = new LoginPage(page);
@@ -22,30 +21,23 @@ test('Answers 07', async ({ page }) => {
   //  for account with number 99999 (i.e., a link with its text equal to '99999').
   await expect(page.getByRole('link', {name: '99999'})).toBeVisible();
 
-  // TODO: EXTRA:
-  //  Add two more mock responses:
-  //  - one that returns the account details when the user clicks the link to go to the account
-  //  - one that returns a transaction for that account so that shows up in the account details page
-  //  Find out what the responses should look like for yourself by inspecting traffic in the live application
-  await page.route('*/**/accounts/99999', async route => {
-    const json = [{id: 99999, customerId: 12212, type: 'CHECKING', balance: 9999.99}];
-    await route.fulfill({json});
+});
+
+test('Answers 07 - Use an error response code in an API response', async ({ page }) => {
+
+  // TODO: add a new mock response to the page. This should mock the call to
+  //  */**/customers/12212/accounts and return an HTTP 500 status code.
+  //  Define this mock _before_ calling the code to login you find below.
+  await page.route('*/**/customers/12212/accounts', async route => {
+    await route.fulfill({status: 500});
   });
 
-  await page.route('*/**/accounts/99999/transactions', async route => {
-    const json = [{id: 45454, accountId: 99999, type: 'Credit', date: 1670774400000, amount: 300.00, description: 'Check # 1234'}];
-    await route.fulfill({json});
-  });
+  const loginPage = new LoginPage(page);
+  await loginPage.open();
+  await loginPage.loginAs('john', 'demo');
 
-  // TODO: EXTRA:
-  //  create a new instance of the AccountsOverviewPage and use the selectAccount() method
-  //  to navigate to the account details for account 99999
-  const accountsOverviewPage = new AccountsOverviewPage(page);
-  await accountsOverviewPage.selectAccount('99999');
+  // TODO: write an assertion that checks that after logging in, the page shows a div element with id 'showError'
+  //  (this is an element containing an error message in ParaBank, indicating that retrieving the list of accounts failed)
+  await expect(page.locator('div#showError')).toBeVisible();
 
-  // TODO: EXTRA:
-  //  Assert that a button with text 'Go' becomes visible.
-  //  Spoiler: it should, but it doesn't. Can you find out why?
-  //  Hint: Have a look at the traffic in the real application to see if we missed something..
-  await expect(page.getByRole('button', {name: 'Go'})).toBeVisible();
 });
