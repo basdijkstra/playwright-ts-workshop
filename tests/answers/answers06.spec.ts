@@ -1,19 +1,24 @@
 import { test, expect } from '@playwright/test';
 
 const testData = [
-  {userId: 1, name: 'Leanne Graham', company: 'Romaguera-Crona'},
-  {userId: 2, name: 'Ervin Howell', company: 'Deckow-Crist'},
-  {userId: 3, name: 'Clementine Bauch', company: 'Romaguera-Jacobson'}
-];
+  { userId: 12212, firstName: 'John', city: 'Beverly Hills'},
+  { userId: 12323, firstName: 'Bob', city: 'Monrovia'}
+]
 
-for (const {userId, name, company} of testData) {
-  test(`User with ID ${userId} is ${name} and works at ${company}`, async ({ request }) => {
+for (const { userId, firstName, city } of testData) {
+  test(`User with ID ${userId} is called ${firstName} and lives in ${city}`, async ({ request }) => {
 
-    const response = await request.get(`https://jsonplaceholder.typicode.com/users/${userId}`);
-    expect(response.ok()).toBeTruthy();
-
-    const body = await response.json();
-    expect(body.name).toBe(name);
-    expect(body.company.name).toBe(company);
+  const response = await request.get(`https://parabank.parasoft.com/parabank/services/bank/customers/${userId}`, {
+    headers: {
+      'Accept': 'application/json'
+    }
   });
+
+  expect(response.status()).toBe(200);
+
+  const responseBody = await response.json();
+
+  expect(responseBody.firstName).toBe(firstName);
+  expect(responseBody.address.city).toBe(city);
+});
 }

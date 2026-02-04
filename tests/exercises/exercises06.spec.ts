@@ -1,37 +1,37 @@
 import { test, expect } from '@playwright/test';
 
-// TODO: rewrite these three tests into a single, parameterized test
+// TODO: refactor these two tests into a single, parameterized test
 //   Which values should be parameterized?
 //   Create a object containing the test data first, then parameterize the test
 
-test('User with ID 1 is Leanne Graham and works at Romaguera-Crone', async ({ request }) => {
+test('Exercises 06 - User with ID 12212 is called John and lives in Beverly Hills', async ({ request }) => {
 
-  const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
-  expect(response.ok()).toBeTruthy();
+  const response = await request.get('https://parabank.parasoft.com/parabank/services/bank/customers/12212', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
 
-  const body = await response.json();
-  expect(body.name).toBe('Leanne Graham');
-  expect(body.company.name).toBe('Romaguera-Crona');
+  expect(response.status()).toBe(200);
+
+  const responseBody = await response.json();
+
+  expect(responseBody.firstName).toBe('John');
+  expect(responseBody.address.city).toBe('Beverly Hills');
 });
 
+test('Exercises 06 - User with ID 12323 is called Bob and lives in Monrovia', async ({ request }) => {
 
-test('User with ID 2 is Ervin Howell and works at Deckow-Crist', async ({ request }) => {
+  const response = await request.get('https://parabank.parasoft.com/parabank/services/bank/customers/12323', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
 
-  const response = await request.get('https://jsonplaceholder.typicode.com/users/2');
-  expect(response.ok()).toBeTruthy();
+  expect(response.status()).toBe(200);
 
-  const body = await response.json();
-  expect(body.name).toBe('Ervin Howell');
-  expect(body.company.name).toBe('Deckow-Crist');
-});
+  const responseBody = await response.json();
 
-
-test('User with ID 3 is Clementine Bauch and works at Romaguera-Jacobson', async ({ request }) => {
-
-  const response = await request.get('https://jsonplaceholder.typicode.com/users/3');
-  expect(response.ok()).toBeTruthy();
-
-  const body = await response.json();
-  expect(body.name).toBe('Clementine Bauch');
-  expect(body.company.name).toBe('Romaguera-Jacobson');
+  expect(responseBody.firstName).toBe('Bob');
+  expect(responseBody.address.city).toBe('Monrovia');
 });
