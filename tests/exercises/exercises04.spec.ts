@@ -1,50 +1,36 @@
 import { test, expect } from '@playwright/test';
-import {LoginPage} from "../answers/pages/login-page";
-import {ProductsOverviewPage} from "../answers/pages/products-overview-page";
+import { LoginPage } from './pages/loginPage';
+import { AccountsOverviewPage } from './pages/accountsOverviewPage'; 
 
-const authFile = 'playwright/.auth/user.json';
+const authFile = 'playwright/.auth/parabank.json';
 
 test.describe('Exercises 04', () => {
 
-  test.beforeAll('Login and capture browser state', async({browser}) =>{
+  test.beforeAll('Login and capture browser state', async({ browser }) =>{
 
     const context = await browser.newContext();
     const page = await context.newPage();
 
     // TODO: Use the LoginPage object to log in to the application
-    // Your code goes here
+    
 
-    // TODO: wait until the element with text 'Sauce Labs Backpack' is visible
+    // TODO: wait until the element with id 'accountTable' is visible
     //   (this guarantees the login sequence is completed)
-    // Your code goes here
+    
 
-    // TODO: store the current browser state in the `authFile`
-    // Your code goes here
+    // TODO: store the current browser state in the file location stored in the `authFile` variable
+    
   });
 
-  test('Reuse browser state - 01', async ({ browser}) => {
+  test('Reuse browser state to directly navigate to Accounts Overview page', async ({ browser }) => {
 
-    // TODO: start a new browser that uses the previously stored browser state
-    // Your code goes here, remove the const page = null; statement
-    const page = null;
+    const context = await browser.newContext({ storageState: authFile });
+    const page = await context.newPage();
 
-    const productsOverviewPage = new ProductsOverviewPage(page);
-    await productsOverviewPage.open();
-    await productsOverviewPage.selectProduct('Sauce Labs Backpack');
+    const accountsOverviewPage = new AccountsOverviewPage(page);
+    await accountsOverviewPage.open();
 
-    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Backpack\']')).toBeVisible();
-  });
-
-  test('Reuse browser state - 02', async ({ browser }) => {
-
-    // TODO: start a new browser that uses the previously stored browser state
-    // Your code goes here, remove the const page = null; statement
-    const page = null;
-
-    const productsOverviewPage = new ProductsOverviewPage(page);
-    await productsOverviewPage.open();
-    await productsOverviewPage.selectProduct('Sauce Labs Bike Light');
-
-    await expect(page.locator('xpath=//div[contains(@class,\'inventory_details_name\') and text()=\'Sauce Labs Bike Light\']')).toBeVisible();
+    // After you completed the exercises, this assertion (and therefore the test) should pass
+    await expect(page.locator('#accountTable')).toBeVisible();
   });
 });
