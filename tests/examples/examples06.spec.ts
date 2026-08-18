@@ -10,7 +10,7 @@ for (const {countryCode, zipCode, expectedPlace} of testData) {
   test(`Country code ${countryCode} and zip code ${zipCode} yields ${expectedPlace}`, async({ request }) => {
 
     const response = await request.get(`https://api.zippopotam.us/${countryCode}/${zipCode}`);
-    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
 
     const body = await response.json();
     expect(body.places[0]['place name']).toBe(expectedPlace);
